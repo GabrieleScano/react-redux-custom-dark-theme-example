@@ -1,6 +1,10 @@
+import React from "react";
 import styled from "styled-components";
-import './App.css';
 import theme from "styled-theming";
+import { Provider as ReduxProvider } from "react-redux";
+import DarkThemeProvider from "./DarkThemeProvider";
+import store from "./store";
+import DarkThemeToggle from "./DarkThemeToggle";
 
 export const backgroundColor = theme("theme", {
   light: "#fff",
@@ -20,21 +24,21 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   font-family: sans-serif;
-
   background-color: ${backgroundColor};
   color: ${textColor};
-
 `;
 
-function App() {
-  return (
-    <Container>
-    <h1>My Theme</h1>
-    <p>
-      <input type="checkbox"></input> Use Theme
-    </p>
-  </Container>
-  );
-}
+const App = () => (
+  <ReduxProvider store={store}>
+    <DarkThemeProvider>
+      <Container>
+        <h1>My Dark Theme Is Better Than Yours</h1>
+     
+          <DarkThemeToggle />
+     
+      </Container>
+    </DarkThemeProvider>
+  </ReduxProvider>
+);
 
 export default App;
